@@ -28,11 +28,11 @@
 <details>
 <summary>Для работы Yii</summary>
 
-Чтобы работать с Yii, необходимо заменить путь `/app/public` на `/app/web`
+Чтобы работать с Yii, необходимо заменить путь */app/public* на */app/web*
 1. изменить конфигурацию nginx
-   в файле `docker/web/nginx/conf.d/app.conf` в 16 строчке заменить `root $base/public;` -> `root $base/web;`
+   в файле *docker/web/nginx/conf.d/app.conf* в 16 строчке заменить `root $base/public;` -> `root $base/web;`
 2. в compose-файле изменить volume  `${APP_BASE_DIR-.}/public:/app/public` -> `${APP_BASE_DIR-.}/web:/app/web` 
-3. в файле `docker/web/Dockerfile` в 12 строчке заменить `COPY --chown=www-data:www-data --from=app /app/public /app/public` -> `COPY --chown=www-data:www-data --from=app /app/web /app/web`
+3. в файле *docker/web/Dockerfile* в 47 строчке заменить `COPY --chown=www-data:www-data --from=app /app/public /app/public` -> `COPY --chown=www-data:www-data --from=app /app/web /app/web`
 
 > Мог где-то что-то упустить. Разворачивать Yii не пробовал.
 </details>
@@ -65,21 +65,21 @@
 <details>
 <summary>Инструкция</summary>
 
-1. Задать значение в `.env` для `XDEBUG_IDE_KEY`. Например: `xdebug_app_key`.
+1. Задать значение в *.env* для *XDEBUG_IDE_KEY*. Например: *xdebug_app_key*.
    При изменении настроек, необходимо пересобрать контейнер с php.
    <hr>
 2. Settings -> Build, Execution, Deployment -> Docker:
 
    Нажимаем "+", указываем своё имя и настраиваем подключение в зависимости от Ваших настроек Docker.
-   Внизу должна появиться надпись `Connection successful`.
+   Внизу должна появиться надпись *Connection successful*.
    <hr>
 3. Settings -> PHP -> CLI Interpreter -> 3 точки:
  
-   Нажимаем слева "+" -> `From Docker, Vargant ...`, выбираем пункт `Docker Compose`.
+   Нажимаем слева "+" -> *From Docker, Vargant ...*, выбираем пункт *Docker Compose*.
 
    Server -> выбираем тот, что создали на прошлом шаге.
    
-   Configuration files -> выбираем `compose.yaml` из этого проекта.
+   Configuration files -> выбираем *compose.yaml* из этого проекта.
    
    Service -> выбираем контейнер с PHP.
 
@@ -93,21 +93,21 @@
    <hr>
 5. Settings -> PHP -> Servers:
 
-   Нажимаем "+", вводим названием (его нужно запомнить), указываем хост (127.0.0.1) и порт, который указали в `.env` для nginx.
+   Нажимаем "+", вводим названием (его нужно запомнить), указываем хост (127.0.0.1) и порт, который указали в *.env* для nginx.
 
-   Включаем галочку `Use path mappings` и раскрываем папку `Projects Files`, на против `app` указываем `/app`.
+   Включаем галочку *Use path mappings* и раскрываем папку *Projects Files*, на против *app* указываем */app*.
    <hr>
 6. Settings -> PHP -> Debug:
 
-   В блоке `Xdebug` находим поле `Debug port` и добавляем туда `9001`.
+   В блоке *Xdebug* находим поле *Debug port* и добавляем туда *9001*.
    <hr>
 7. Run -> Edit configurations:
    
-   Нажимаем на "+", переходим в `PHP Remote Debug`, указываем название.
+   Нажимаем на "+", переходим в *PHP Remote Debug*, указываем название.
 
    В поле Server указываем тот, что создали в п.5
 
-   IDE key (session_id) указываем тот, что указали в `.env` в поле `XDEBUG_IDE_KEY`
+   IDE key (session_id) указываем тот, что указали в *.env* в поле *XDEBUG_IDE_KEY*
 
 После, на верхней панели, где включается debug, выбираем вариант из п.7.
 Теперь можно ставить breakpoints, запускать debug и посылать запросы.
